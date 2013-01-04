@@ -8,21 +8,21 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache\Backends;
+namespace PhpCache\Backends;
 
 /**
- * Memcached
+ * Memcache
  */
-class Memcached extends AbstractBackend
+class Memcache extends AbstractBackend
 {
-    /** @var \Memcached */
-    protected $memcached;
+    /** @var \Memcache */
+    protected $memcache;
 
     /**
      * Constructor
      *
      * Possible options:
-     *  - memcached: a \Memcached object
+     *  - memcache: a \Memcache object
      *  - host
      *  - port
      *
@@ -30,28 +30,22 @@ class Memcached extends AbstractBackend
      */
     public function __construct(array $options)
     {
-        if (isset($options['memcached'])) {
-            $this->memcached = $options['memcached'];
+        if (isset($options['memcache'])) {
+            $this->memcache = $options['memcache'];
         } else {
             $host = isset($options['host']) ? $options['host'] : 'localhost';
             $port = isset($options['port']) ? $options['port'] : 11211;
-            $this->memcached = new \Memcached();
-            $this->memcached->addServer($host, $port);
+            $this->memcache = new \Memcache();
+            $this->memcache->addServer($host, $port);
         }
     }
 
     public function get($id)
     {
-        if (($value = $this->memcached->get($id)) === false) {
+        if (($value = $this->memcache->get($id)) === false) {
             return null;
         }
         return $value;
-    }
-
-    public function getMulti(array $ids)
-    {
-        $null = null;
-        return $this->memcached->getMulti($ids, $null, \Memcached::GET_PRESERVE_ORDER);
     }
 
     public function add($id, $value, $ttl = null)
@@ -60,7 +54,7 @@ class Memcached extends AbstractBackend
         if ($ttl > 0) {
             $ttl = time() + $ttl;
         }
-        return $this->memcached->add($id, $value, $ttl);
+        return $this->memcache->add($id, $value, 0, $ttl);
     }
 
     public function set($id, $value, $ttl = null)
@@ -69,25 +63,16 @@ class Memcached extends AbstractBackend
         if ($ttl > 0) {
             $ttl = time() + $ttl;
         }
-        return $this->memcached->set($id, $value, $ttl);
-    }
-
-    public function setMulti(array $items, $ttl = null)
-    {
-        $ttl = $ttl ?: 0;
-        if ($ttl > 0) {
-            $ttl = time() + $ttl;
-        }
-        return $this->memcached->setMulti($items, $ttl);
+        return $this->memcache->set($id, $value, 0, $ttl);
     }
 
     public function delete($id)
     {
-        return $this->memcached->delete($id);
+        return $this->memcache->delete($id);
     }
 
     public function flushAll()
     {
-        return $this->memcached->flush();
+        return $this->memcache->flush();
     }
 }

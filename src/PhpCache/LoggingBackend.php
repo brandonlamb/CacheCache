@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 use Monolog\Logger;
 
 /**
  * Wraps a backend to provide insights on its usage
  */
-class LoggingBackend implements Backend
+class LoggingBackend implements BackendInterface
 {
-    /** @var Backend */
+    /** @var BackendInterface */
     protected $backend;
 
     /** @var Logger */
@@ -28,11 +28,11 @@ class LoggingBackend implements Backend
 
     /**
      * @see Logger
-     * @param Backend $backend
+     * @param BackendInterface $backend
      * @param Logger $logger
      * @param int $logLevel
      */
-    public function __construct(Backend $backend, Logger $logger, $logLevel = null)
+    public function __construct(BackendInterface $backend, Logger $logger, $logLevel = null)
     {
         $this->backend = $backend;
         $this->logger = $logger;
@@ -40,7 +40,7 @@ class LoggingBackend implements Backend
     }
 
     /**
-     * @return Backend
+     * @return BackendInterface
      */
     public function getBackend()
     {
@@ -81,7 +81,7 @@ class LoggingBackend implements Backend
 
     /**
      * Logs an operation
-     * 
+     *
      * @param string $operation
      * @param string|array $id
      * @param int $ttl

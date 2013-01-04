@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 /**
- * Pipelines are inspired from Predis. 
+ * Pipelines are inspired from Predis.
  * They allow to easily perform multiple get and set commands.
  *
  * <code>
@@ -31,7 +31,7 @@ namespace CacheCache;
  */
 class Pipeline
 {
-    /** @var Backend */
+    /** @var BackendInterface */
     protected $backend;
 
     /** @var array */
@@ -41,9 +41,9 @@ class Pipeline
     protected $ttl = null;
 
     /**
-     * @param Backend $backend
+     * @param BackendInterface $backend
      */
-    public function __construct(Backend $backend)
+    public function __construct(BackendInterface $backend)
     {
         $this->backend = $backend;
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace CacheCache\Tests;
+namespace PhpCache\Tests;
 
 abstract class CacheTestCase extends \PHPUnit_Framework_TestCase
 {
-    
+
 }

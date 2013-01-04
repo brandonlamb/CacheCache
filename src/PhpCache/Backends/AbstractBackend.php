@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache\Backends;
+namespace PhpCache\Backends;
 
-use CacheCache\Backend;
+use PhpCache\BackendInterface;
 
 /**
  * Base class for backends
  */
-abstract class AbstractBackend implements Backend
+abstract class AbstractBackend implements BackendInterface
 {
     /**
      * {@inheritDoc}

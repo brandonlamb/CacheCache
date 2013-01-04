@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 use Monolog\Logger;
 
@@ -46,14 +46,14 @@ class CacheManager
      * $caches can also be an array to define multiple cache instances an once.
      * Keys will be used as cache names and values must be compatible with the
      * {@see factory()} method $options argument.
-     * 
+     *
      * <code>
      *      CacheManager::setup(array(
      *          'default' => 'CacheCache\Backend\File'
      *      ));
      * </code>
      *
-     * If $logger is not null, all Backend instances will be wrapped in a 
+     * If $logger is not null, all Backend instances will be wrapped in a
      * {@see LoggingBackend} object.
      *
      * @see factory()
@@ -96,7 +96,7 @@ class CacheManager
      */
     public static function factory($options)
     {
-        if (is_string($options) || $options instanceof Backend) {
+        if (is_string($options) || $options instanceof BackendInterface) {
             $options = array('backend' => $options);
         } else if (!is_array($options)) {
             throw new CacheException("Options for '$name' in CacheManager::create() must be an array");
@@ -120,7 +120,7 @@ class CacheManager
         if (self::$logger !== null) {
             $backend = new LoggingBackend($backend, self::$logger, self::$logLevel);
         }
-            
+
         $cache = new Cache($backend, $options['namespace'], $options['ttl'], $options['variation']);
         return $cache;
     }

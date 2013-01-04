@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache\Backends;
+namespace PhpCache\Backends;
 
 use Predis,
-    CacheCache\Backend;
+    PhpCache\BackendInterface;
 
 /**
  * Redis
  */
-class Redis implements Backend
+class Redis implements BackendInterface
 {
     /** @var Predis\Client */
     protected $redis;

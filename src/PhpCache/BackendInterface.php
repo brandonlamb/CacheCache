@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 /**
  * Backends provide a way to store cached data.
  */
-interface Backend
+interface BackendInterface
 {
     /**
      * Checks if the $id exists
@@ -21,7 +21,7 @@ interface Backend
      * @param string $id
      * @return bool
      */
-    function exists($id);
+    public function exists($id);
 
     /**
      * Retreives the value associated to the $id from the cache
@@ -31,28 +31,28 @@ interface Backend
      * @param string $id
      * @return mixed
      */
-    function get($id);
+    public function get($id);
 
     /**
      * Retreives multiple values at once
      *
-     * An array will be returned, containing the values in the 
+     * An array will be returned, containing the values in the
      * same order as the $ids.
      *
      * @param array $ids
      * @return array
      */
-    function getMulti(array $ids);
+    public function getMulti(array $ids);
 
     /**
-     * Stores a $value in the cache under the specified $id only 
+     * Stores a $value in the cache under the specified $id only
      * if it does not exist already.
      *
      * @param string $id
      * @param mixed $value
      * @param int $ttl Time to live in seconds
      */
-    function add($id, $value, $ttl = null);
+    public function add($id, $value, $ttl = null);
 
     /**
      * Stores a $value in the cache under the specified $id.
@@ -62,7 +62,7 @@ interface Backend
      * @param mixed $value
      * @param int $ttl Time to live in seconds
      */
-    function set($id, $value, $ttl = null);
+    public function set($id, $value, $ttl = null);
 
     /**
      * Sets multiple $id/$value pairs at once
@@ -70,19 +70,19 @@ interface Backend
      * @param array $items
      * @param int $ttl Time to live in seconds
      */
-    function setMulti(array $items, $ttl = null);
+    public function setMulti(array $items, $ttl = null);
 
     /**
      * Deletes an $id from the cache
      *
      * @param string $id
      */
-    function delete($id);
+    public function delete($id);
 
     /**
      * Deletes all data from the cache
      */
-    function flushAll();
+    public function flushAll();
 
     /**
      * Whether this backend supports pipelines
@@ -90,7 +90,7 @@ interface Backend
      * @see Pipeline
      * @return bool
      */
-    function supportsPipelines();
+    public function supportsPipelines();
 
     /**
      * Creates a new pipeline
@@ -99,5 +99,5 @@ interface Backend
      *
      * @return object
      */
-    function createPipeline();
+    public function createPipeline();
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace CacheCache\Tests;
+namespace PhpCache\Tests;
 
-use CacheCache\Cache,
-    CacheCache\Backends,
-    CacheCache\ObjectWrapper;
+use PhpCache\Cache,
+    PhpCache\Backends,
+    PhpCache\ObjectWrapper;
 
-class TestObject 
+class TestObject
 {
     public $foobar = 'foobar';
     public function longOp($time=1) {
@@ -20,7 +20,7 @@ class ObjectWrapperTest extends CacheTestCase
     {
         $this->cache = new Cache(new Backends\Memory());
     }
-    
+
     public function testProperties()
     {
         $obj = $this->cache->wrap(new TestObject());

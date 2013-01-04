@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 /**
  * Cache frontend
  *
  * Provides facility methods to interact with a backend.
  */
-class Cache implements Backend
+class Cache implements BackendInterface
 {
     /** @var string */
     public static $namespaceSeparator = ':';
@@ -23,7 +23,7 @@ class Cache implements Backend
     /** @var string */
     protected $namespace;
 
-    /** @var Backend */
+    /** @var BackendInterface */
     protected $backend;
 
     /** @var int */
@@ -39,12 +39,12 @@ class Cache implements Backend
     protected $capturing = 0;
 
     /**
-     * @param Backend $backend
+     * @param BackendInterface $backend
      * @param string $namespace
      * @param int $defaultTTL
      * @param int $ttlVariation
      */
-    public function __construct(Backend $backend, $namespace = '', $defaultTTL = null, $ttlVariation = 0)
+    public function __construct(BackendInterface $backend, $namespace = '', $defaultTTL = null, $ttlVariation = 0)
     {
         $this->backend = $backend;
         $this->namespace = $namespace;
@@ -61,7 +61,7 @@ class Cache implements Backend
     }
 
     /**
-     * @return Backend
+     * @return BackendInterface
      */
     public function getBackend()
     {
@@ -325,7 +325,7 @@ class Cache implements Backend
         return $output;
     }
 
-    /** 
+    /**
      * Similar to {@see save()} but saves the output since the last call
      * to {@see start()}. Also echoes the output unless $echo is set to false.
      *

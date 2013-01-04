@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache\Backends;
+namespace PhpCache\Backends;
 
-use CacheCache\CacheException;
+use PhpCache\CacheException;
 
 /**
  * Memory
@@ -22,7 +22,7 @@ class Session extends Memory
     public function __construct()
     {
         if (!isset($_SESSION)) {
-            throw new CacheException("Session must be started in order to use 'CacheCache\Backends\Session'");
+            throw new CacheException("Session must be started in order to use 'PhpCache\Backends\Session'");
         }
         $this->cache = &$_SESSION;
     }

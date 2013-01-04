@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 /**
  * Wraps an object and cache all the calls to its methods.
@@ -24,7 +24,7 @@ namespace CacheCache;
  */
 class ObjectWrapper
 {
-    /** @var Backend */
+    /** @var BackendInterface */
     protected $backend;
 
     /** @var object */
@@ -32,9 +32,9 @@ class ObjectWrapper
 
     /**
      * @param object $object
-     * @param Backend $backend
+     * @param BackendInterface $backend
      */
-    public function __construct($object, Backend $backend)
+    public function __construct($object, BackendInterface $backend)
     {
         $this->object = $object;
         $this->backend = $backend;

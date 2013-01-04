@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CacheCache;
+namespace PhpCache;
 
 /**
  * Same as {@see Cache} but with support for multiple backends
@@ -31,7 +31,7 @@ class MultiCache extends Cache
         }
 
         foreach ($backends as $backend) {
-            if (!($backend instanceof Backend)) {
+            if (!($backend instanceof BackendInterface)) {
                 throw new CacheException("Backends must be instance of CacheCache\Backend in CacheCache\MultiCache");
             }
         }

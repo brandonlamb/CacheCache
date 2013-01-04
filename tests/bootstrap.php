@@ -8,7 +8,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 spl_autoload_register(function($className) {
-    if (substr($className, 0, 10) === 'CacheCache') {
+    if (substr($className, 0, 10) === 'PhpCache') {
         $filename = str_replace('\\', DIRECTORY_SEPARATOR, trim($className, '\\')) . '.php';
         require_once $filename;
     }
