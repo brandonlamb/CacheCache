@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpCache\Backends;
+namespace CacheCache\Backends;
 
-use PhpCache\BackendInterface;
+use CacheCache\BackendInterface;
 
 /**
  * Base class for backends

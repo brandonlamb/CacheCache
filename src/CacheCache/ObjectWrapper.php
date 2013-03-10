@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpCache;
+namespace CacheCache;
 
 /**
  * Wraps an object and cache all the calls to its methods.

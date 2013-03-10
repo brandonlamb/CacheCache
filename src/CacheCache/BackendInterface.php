@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpCache;
+namespace CacheCache;
 
 /**
  * Backends provide a way to store cached data.

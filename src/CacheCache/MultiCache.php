@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpCache;
+namespace CacheCache;
 
 /**
  * Same as {@see Cache} but with support for multiple backends
