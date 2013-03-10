@@ -31,93 +31,93 @@ namespace CacheCache;
  */
 class Pipeline
 {
-    /** @var BackendInterface */
-    protected $backend;
+	/** @var BackendInterface */
+	protected $backend;
 
-    /** @var array */
-    protected $commands = array();
+	/** @var array */
+	protected $commands = array();
 
-    /** @var int */
-    protected $ttl = null;
+	/** @var int */
+	protected $ttl = null;
 
-    /**
-     * @param BackendInterface $backend
-     */
-    public function __construct(BackendInterface $backend)
-    {
-        $this->backend = $backend;
-    }
+	/**
+	 * @param BackendInterface $backend
+	 */
+	public function __construct(BackendInterface $backend)
+	{
+		$this->backend = $backend;
+	}
 
-    /**
-     * Registers a GET command
-     *
-     * @param string $id
-     */
-    public function get($id)
-    {
-        $this->commands[] = array('get', $id);
-    }
+	/**
+	 * Registers a GET command
+	 *
+	 * @param string $id
+	 */
+	public function get($id)
+	{
+		$this->commands[] = array('get', $id);
+	}
 
-    /**
-     * Registers a SET command
-     *
-     * @param string $id
-     * @param mixed $value
-     */
-    public function set($id, $value)
-    {
-        $this->commands[] = array('set', $id, $value);
-    }
+	/**
+	 * Registers a SET command
+	 *
+	 * @param string $id
+	 * @param mixed $value
+	 */
+	public function set($id, $value)
+	{
+		$this->commands[] = array('set', $id, $value);
+	}
 
-    /**
-     * Sets the ttl for all SET commands
-     *
-     * @param int $ttl
-     */
-    public function ttl($ttl = null)
-    {
-        $this->ttl = $ttl;
-    }
+	/**
+	 * Sets the ttl for all SET commands
+	 *
+	 * @param int $ttl
+	 */
+	public function ttl($ttl = null)
+	{
+		$this->ttl = $ttl;
+	}
 
-    /**
-     * Executes the pipeline and returns results of individual commands
-     * as an array.
-     *
-     * @return array
-     */
-    public function execute()
-    {
-        $groups = array();
-        $results = array();
-        $currentOperation = null;
-        $currentGroup = array();
+	/**
+	 * Executes the pipeline and returns results of individual commands
+	 * as an array.
+	 *
+	 * @return array
+	 */
+	public function execute()
+	{
+		$groups = array();
+		$results = array();
+		$currentOperation = null;
+		$currentGroup = array();
 
-        foreach ($this->commands as $command) {
-            if ($currentOperation !== $command[0]) {
-                $groups[] = array($currentOperation, $currentGroup);
-                $currentOperation = $command[0];
-                $currentGroup = array();
-            }
-            if ($currentOperation === 'get') {
-                $currentGroup[] = $command[1];
-            } else {
-                $currentGroup[$command[1]] = $command[2];
-            }
-        }
-        $groups[] = array($currentOperation, $currentGroup);
-        array_shift($groups);
+		foreach ($this->commands as $command) {
+			if ($currentOperation !== $command[0]) {
+				$groups[] = array($currentOperation, $currentGroup);
+				$currentOperation = $command[0];
+				$currentGroup = array();
+			}
+			if ($currentOperation === 'get') {
+				$currentGroup[] = $command[1];
+			} else {
+				$currentGroup[$command[1]] = $command[2];
+			}
+		}
+		$groups[] = array($currentOperation, $currentGroup);
+		array_shift($groups);
 
-        foreach ($groups as $group) {
-            list($op, $args) = $group;
-            if ($op === 'set') {
-                $result = $this->backend->setMulti($args, $this->ttl);
-                $results = array_merge($results, array_fill(0, count($args), $result));
-            } else {
-                $results = array_merge($results, $this->backend->getMulti($args));
-            }
-        }
+		foreach ($groups as $group) {
+			list($op, $args) = $group;
+			if ($op === 'set') {
+				$result = $this->backend->setMulti($args, $this->ttl);
+				$results = array_merge($results, array_fill(0, count($args), $result));
+			} else {
+				$results = array_merge($results, $this->backend->getMulti($args));
+			}
+		}
 
-        $this->commands = array();
-        return $results;
-    }
+		$this->commands = array();
+		return $results;
+	}
 }

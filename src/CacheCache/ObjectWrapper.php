@@ -24,59 +24,59 @@ namespace CacheCache;
  */
 class ObjectWrapper
 {
-    /** @var BackendInterface */
-    protected $backend;
+	/** @var BackendInterface */
+	protected $backend;
 
-    /** @var object */
-    protected $object;
+	/** @var object */
+	protected $object;
 
-    /**
-     * @param object $object
-     * @param BackendInterface $backend
-     */
-    public function __construct($object, BackendInterface $backend)
-    {
-        $this->object = $object;
-        $this->backend = $backend;
-    }
+	/**
+	 * @param object $object
+	 * @param BackendInterface $backend
+	 */
+	public function __construct($object, BackendInterface $backend)
+	{
+		$this->object = $object;
+		$this->backend = $backend;
+	}
 
-    public function __get($name)
-    {
-        return $this->object->$name;
-    }
+	public function __get($name)
+	{
+		return $this->object->$name;
+	}
 
-    public function __set($name, $value)
-    {
-        $this->object->$name = $value;
-    }
+	public function __set($name, $value)
+	{
+		$this->object->$name = $value;
+	}
 
-    public function __isset($name)
-    {
-        return isset($this->object->$name);
-    }
+	public function __isset($name)
+	{
+		return isset($this->object->$name);
+	}
 
-    public function __unset($name)
-    {
-        unset($this->object->$name);
-    }
+	public function __unset($name)
+	{
+		unset($this->object->$name);
+	}
 
-    public function __toString()
-    {
-        return $this->__call('__toString', func_get_args());
-    }
+	public function __toString()
+	{
+		return $this->__call('__toString', func_get_args());
+	}
 
-    public function __invoke()
-    {
-        return $this->__call('__invoke', func_get_args());
-    }
+	public function __invoke()
+	{
+		return $this->__call('__invoke', func_get_args());
+	}
 
-    public function __call($method, $args)
-    {
-        $id = md5($method . serialize($args) . serialize(get_object_vars($this->object)));
-        if (($value = $this->backend->get($id)) === null) {
-            $value = call_user_func_array(array($this->object, $method), $args);
-            $this->backend->add($id, $value);
-        }
-        return $value;
-    }
+	public function __call($method, $args)
+	{
+		$id = md5($method . serialize($args) . serialize(get_object_vars($this->object)));
+		if (($value = $this->backend->get($id)) === null) {
+			$value = call_user_func_array(array($this->object, $method), $args);
+			$this->backend->add($id, $value);
+		}
+		return $value;
+	}
 }
