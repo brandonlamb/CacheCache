@@ -15,25 +15,37 @@ namespace CacheCache\Backends;
  *
  * Does nothing. Can be used to disable caching
  */
-class Dummy extends AbstractBackend
+class Dummy extends AbstractBackend implements BackendInterface
 {
-    public function get($id)
-    {
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get($id)
+	{
+		return null;
+	}
 
-    public function set($id, $value, $ttl = null)
-    {
-        return true;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set($id, $value, $ttl = null)
+	{
+		return true;
+	}
 
-    public function delete($id)
-    {
-        return true;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function delete($id)
+	{
+		return true;
+	}
 
-    public function flushAll()
-    {
-        return true;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function flushAll()
+	{
+		return true;
+	}
 }

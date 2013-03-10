@@ -13,38 +13,56 @@ namespace CacheCache\Backends;
 /**
  * Apc
  */
-class Apc extends AbstractBackend
+class Apc extends AbstractBackend implements BackendInterface
 {
-    public function exists($id)
-    {
-        return apc_exists($id);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function exists($id)
+	{
+		return apc_exists($id);
+	}
 
-    public function get($id)
-    {
-        if (($value = apc_fetch($id)) === false) {
-            return null;
-        }
-        return $value;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get($id)
+	{
+		if (($value = apc_fetch($id)) === false) {
+			return null;
+		}
+		return $value;
+	}
 
-    public function add($id, $value, $ttl = null)
-    {
-        return apc_add($id, $value, $ttl ?: 0);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function add($id, $value, $ttl = null)
+	{
+		return apc_add($id, $value, $ttl ?: 0);
+	}
 
-    public function set($id, $value, $ttl = null)
-    {
-        return apc_store($id, $value, $ttl ?: 0);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function set($id, $value, $ttl = null)
+	{
+		return apc_store($id, $value, $ttl ?: 0);
+	}
 
-    public function delete($id)
-    {
-        return apc_delete($id);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function delete($id)
+	{
+		return apc_delete($id);
+	}
 
-    public function flushAll()
-    {
-        return false;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function flushAll()
+	{
+		return false;
+	}
 }

@@ -15,62 +15,62 @@ use CacheCache\BackendInterface;
 /**
  * Base class for backends
  */
-abstract class AbstractBackend implements BackendInterface
+abstract class AbstractBackend
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function exists($id)
-    {
-        return $this->get($id) !== null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function exists($id)
+	{
+		return $this->get($id) !== null;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getMulti(array $ids)
-    {
-        $values = array();
-        foreach ($ids as $id) {
-            $values[] = $this->get($id);
-        }
-        return $values;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getMulti(array $ids)
+	{
+		$values = array();
+		foreach ($ids as $id) {
+			$values[] = $this->get($id);
+		}
+		return $values;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function add($id, $value, $ttl = null)
-    {
-        return $this->set($id, $value, $ttl);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function add($id, $value, $ttl = null)
+	{
+		return $this->set($id, $value, $ttl);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function setMulti(array $items, $ttl = null)
-    {
-        foreach ($items as $id => $value) {
-            if (!$this->set($id, $value, $ttl)) {
-                return false;
-            }
-        }
-        return true;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setMulti(array $items, $ttl = null)
+	{
+		foreach ($items as $id => $value) {
+			if (!$this->set($id, $value, $ttl)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function supportsPipelines()
-    {
-        return false;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function supportsPipelines()
+	{
+		return false;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function createPipeline()
-    {
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public function createPipeline()
+	{
+		return null;
+	}
 }

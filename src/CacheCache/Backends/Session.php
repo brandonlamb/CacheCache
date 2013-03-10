@@ -19,11 +19,11 @@ use CacheCache\CacheException;
  */
 class Session extends Memory
 {
-    public function __construct()
-    {
-        if (!isset($_SESSION)) {
-            throw new CacheException("Session must be started in order to use 'CacheCache\Backends\Session'");
-        }
-        $this->cache = &$_SESSION;
-    }
+	public function __construct()
+	{
+		if (!isset($_SESSION)) {
+			throw new CacheException("Session must be started in order to use 'CacheCache\Backends\Session'");
+		}
+		$this->cache = &$_SESSION;
+	}
 }
