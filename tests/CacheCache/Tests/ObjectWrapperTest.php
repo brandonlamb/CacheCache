@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpCache\Tests;
+namespace CacheCache\Tests;
 
-use PhpCache\Cache,
-    PhpCache\Backends,
-    PhpCache\ObjectWrapper;
+use CacheCache\Cache,
+    CacheCache\Backends,
+    CacheCache\ObjectWrapper;
 
 class TestObject
 {

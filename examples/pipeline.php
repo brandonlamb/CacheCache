@@ -1,7 +1,7 @@
 <?php
 
 include 'bootstrap.php';
-$cache = PhpCache\CacheManager::get();
+$cache = CacheCache\CacheManager::get();
 
 $r = $cache->pipeline(function($pipe) {
     $pipe->set('foo', 'bar');

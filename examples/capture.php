@@ -1,7 +1,7 @@
 <?php
 
 include 'bootstrap.php';
-$cache = PhpCache\CacheManager::get();
+$cache = CacheCache\CacheManager::get();
 
 if (!$cache->start('foo')) {
     echo "bar\n";

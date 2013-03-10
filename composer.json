@@ -1,16 +1,23 @@
 {
-    "name": "maximebf/cachecache",
+    "name": "brandonlamb/cachecache",
     "version": "1.0.0",
     "description": "Caching library for PHP5.3",
     "keywords": ["cache"],
     "homepage": "https://github.com/brandonlamb/CacheCache",
     "type": "library",
     "license": "MIT",
-    "authors": [{
-        "name": "Maxime Bouroumeau-Fuseau",
-        "email": "maxime.bouroumeau@gmail.com",
-        "homepage": "http://maximebf.com"
-    }],
+    "authors": [
+        {
+            "name": "Maxime Bouroumeau-Fuseau",
+            "email": "maxime.bouroumeau@gmail.com",
+            "homepage": "http://maximebf.com"
+        },
+        {
+            "name": "Brandon Lamb",
+            "email": "brandon@brandonlamb.com",
+            "homepage": "http://brandonlamb.com"
+        }
+    ],
     "require": {
         "php": ">=5.3.0"
     },

@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpCache\Tests;
+namespace CacheCache\Tests;
 
-use PhpCache\Cache,
-    PhpCache\Backends;
+use CacheCache\Cache,
+    CacheCache\Backends;
 
 class CacheTest extends CacheTestCase
 {
@@ -158,7 +158,7 @@ class CacheTest extends CacheTestCase
     }
 
     /**
-     * @expectedException        PhpCache\CacheException
+     * @expectedException        CacheCache\CacheException
      * @expectedExceptionMessage Cache::load() must be called before Cache::save()
      */
     public function testCancel()

@@ -12,14 +12,14 @@
          bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="PhpCache Test Suite">
-            <directory>./tests/PhpCache/</directory>
+        <testsuite name="CacheCache Test Suite">
+            <directory>./tests/CacheCache/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./src/PhpCache/</directory>
+            <directory>./src/CacheCache/</directory>
         </whitelist>
     </filter>
 </phpunit>

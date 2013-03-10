@@ -4,7 +4,7 @@ include __DIR__ . '/../tests/bootstrap.php';
 
 $logger = null;
 if (class_exists('Monolog\Logger')) {
-    $logger = new Monolog\Logger('PhpCache');
+    $logger = new Monolog\Logger('CacheCache');
 }
 
-PhpCache\CacheManager::setup(new PhpCache\Backends\Memory(), $logger);
+CacheCache\CacheManager::setup(new CacheCache\Backends\Memory(), $logger);
