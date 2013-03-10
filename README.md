@@ -2,7 +2,7 @@
 
 Caching framework for PHP 5.3+
 
-[![Build Status](https://secure.travis-ci.org/maximebf/CacheCache.png)](http://travis-ci.org/maximebf/CacheCache)
+[![Build Status](https://www.travis-ci.org/brandonlamb/CacheCache.png?branch=master)](https://www.travis-ci.org/brandonlamb/CacheCache)
 
 Features:
 
@@ -19,7 +19,7 @@ Features:
 CacheCache features are exposed through a Cache object which itself uses backends to store the data.
 Multiple instances of Cache objects can be managed using the CacheManager.
 
-Full documentation at [http://maximebf.github.com/CacheCache/](http://maximebf.github.com/CacheCache/)
+Full documentation at [http://brandonlamb.github.com/CacheCache/](http://brandonlamb.github.com/CacheCache/)
 
 Examples:
 
@@ -46,4 +46,4 @@ Examples:
         $pipe->get('foo');
     });
 
-More examples in [examples/](https://github.com/maximebf/CacheCache/tree/master/examples)
+More examples in [examples/](https://github.com/brandonlamb/CacheCache/tree/master/examples)
