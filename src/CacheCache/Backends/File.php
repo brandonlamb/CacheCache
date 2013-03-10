@@ -10,6 +10,8 @@
 
 namespace CacheCache\Backends;
 
+use CacheCache\BackendInterface;
+
 class File extends AbstractBackend implements BackendInterface
 {
 	/** @var string */

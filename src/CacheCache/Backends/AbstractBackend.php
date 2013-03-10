@@ -10,8 +10,6 @@
 
 namespace CacheCache\Backends;
 
-use CacheCache\BackendInterface;
-
 /**
  * Base class for backends
  */
