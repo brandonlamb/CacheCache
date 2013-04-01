@@ -17,7 +17,7 @@ use Monolog\Logger;
  */
 class CacheManager
 {
-	const _DEFAULT = 'default';
+	const DEFAULT_NAME = 'default';
 
 	/** @var Logger */
 	public static $logger;
@@ -64,14 +64,14 @@ class CacheManager
 	public static function setup($caches, Logger $logger = null, $logLevel = null)
 	{
 		if (!is_array($caches)) {
-			$caches = array(self::_DEFAULT => array('backend' => $caches));
+			$caches = array(static::DEFAULT_NAME => array('backend' => $caches));
 		}
 
-		self::$logger = $logger;
-		self::$logLevel = $logLevel;
+		static::$logger = $logger;
+		static::$logLevel = $logLevel;
 
 		foreach ($caches as $name => $options) {
-			self::$caches[$name] = self::factory($options);
+			static::$caches[$name] = static::factory($options);
 		}
 	}
 
@@ -102,7 +102,7 @@ class CacheManager
 			throw new CacheException("Options for '$name' in CacheManager::create() must be an array");
 		}
 
-		$options = array_merge(self::$defaults, $options);
+		$options = array_merge(static::$defaults, $options);
 		if (!isset($options['backend'])) {
 			throw new CacheException("No backend specified for '$name' in CacheManager::create()");
 		}
@@ -117,8 +117,8 @@ class CacheManager
 			}
 		}
 
-		if (self::$logger !== null) {
-			$backend = new LoggingBackend($backend, self::$logger, self::$logLevel);
+		if (static::$logger !== null) {
+			$backend = new LoggingBackend($backend, static::$logger, static::$logLevel);
 		}
 
 		$cache = new Cache($backend, $options['namespace'], $options['ttl'], $options['variation']);
@@ -133,34 +133,34 @@ class CacheManager
 	 */
 	public static function set($name, Cache $cache)
 	{
-		self::$caches[$name] = $cache;
+		static::$caches[$name] = $cache;
 	}
 
 	/**
 	 * Returns the {@see Cache} instance under $name
 	 *
-	 * @param string $name If null will used the instance named CacheManager::_DEFAULT
+	 * @param string $name If null will used the instance named CacheManager::DEFAULT_NAME
 	 * @return Cache
 	 */
-	public static function get($name = null)
+	public function get($name = null)
 	{
-		$name = $name ?: self::_DEFAULT;
-		if (!isset(self::$caches[$name])) {
+		$name = $name ?: static::DEFAULT_NAME;
+		if (!isset(static::$caches[$name])) {
 			throw new CacheException("Cache '$name' not found");
 		}
-		return self::$caches[$name];
+		return static::$caches[$name];
 	}
 
 	/**
-	 * Shorcut to self::get()->ns()
+	 * Shorcut to static::get()->ns()
 	 *
 	 * @see Cache::ns()
 	 * @param string $namespace
 	 * @param int $defaultTTL
 	 * @return Cache
 	 */
-	public static function ns($namespace, $defaultTTL = null)
+	public function ns($namespace, $defaultTTL = null)
 	{
-		return self::get()->ns($namespace, $defaultTTL);
+		return static::get()->ns($namespace, $defaultTTL);
 	}
 }
